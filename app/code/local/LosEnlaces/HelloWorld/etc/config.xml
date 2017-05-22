@@ -1,0 +1,8 @@
+<?xml version="1.0?>
+<config>
+    <modules>
+        <LosEnlaces_HelloWorld>
+            <version>0.1.0</version>
+        </LosEnlaces_HelloWorld>
+    </modules>
+</config>

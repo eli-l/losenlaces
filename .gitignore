@@ -1,0 +1,6 @@
+/app/etc/local.xml
+.idea/
+/.htaccess
+/.sass-cache
+/var/
+/media/
