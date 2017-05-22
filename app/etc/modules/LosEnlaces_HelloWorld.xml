@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <LosEnlaces_HelloWorld>
+            <active>true</active>
+            <codePool>local</codePool>
+        </LosEnlaces_HelloWorld>
+    </modules>
+</config>
