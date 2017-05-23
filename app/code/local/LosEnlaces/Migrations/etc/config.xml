@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <LosEnlaces_Migrations>
+            <version>0.1.0</version>
+        </LosEnlaces_Migrations>
+    </modules>
+    <global>
+        <resources>
+            <los_enlaces_install>
+                <setup>
+                    <module>LosEnlaces_Migrations</module>
+                </setup>
+            </los_enlaces_install>
+        </resources>
+    </global>
+</config>
