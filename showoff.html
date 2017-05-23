@@ -3,29 +3,170 @@
 <head>
 	<meta charset="UTF-8">
 	<title>You are awesome developer</title>
-	<script
-  src="https://code.jquery.com/jquery-2.2.4.js"
-  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-  crossorigin="anonymous"></script>
+	<script src="./jquery-3.2.1.min.js"></script>
 </head>
+<style>
+	.buttons {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	
+	#photo,
+	#video {
+		position: relative;
+		top: 40px;
+		width: 500px;
+		margin: 0 auto;
+		display: block;
+	}
+
+	.content {
+		display: none;
+	}
+
+	#swlogo {
+		margin: 0 auto;
+		display: block
+	}
+
+	button {
+		width: 120px;
+		background: red;
+		color: white;
+		text-transform: uppercase;
+		padding: 5px 10px;
+		border: none;
+		outline: none;
+		z-index: 9999;
+	}
+
+	#img {
+		position: relative;
+		width: 50%;
+		margin: 0 auto;
+		display: none;
+		height: 430px;
+		top: 30px;
+	}
+
+	h1 {
+		position: absolute;
+	    left: 50%;
+	    transform: translateX(-50%);
+	}
+	
+	#wanted {
+	    top: 13px;
+
+	}
+
+	#title {
+		bottom: 10px;
+		left: 50%;
+		text-align: center;
+		color: white;
+	}
+
+</style>
 <body>
-	<button id="button">capture</button>
+	<img id="swlogo" src="sw.png" alt="Scandiweb is cool!">
+	<div class="content">
+		
+	<div class="buttons">
+		<button id="capture">Go!!!</button>
+		<button id="cancel">Once again</button>	
+	</div>
 	<video src="" id="video"></video>
-	<input type="file" id="take-picture" accept="image/*">
+	<canvas style="display:none" id="canvas"></canvas>
+	<div id="img">
+		<img src="" id="photo" alt="">
+		<h1 id="wanted">Wanted</h1>
+		<h1 id="title">Awesome Magento Magician</h1>	
+	</div>
+	
+	</div>
 	<script>
 		var takePicture = $('#take-picture');
-		var video = $('#video');
-		takePicture.on('click', function(e){
-			e.preventDefault();
-			var media = navigator.mediaDevices.getUserMedia({video: true});
-			media.then(function(stream){
-				video[0].srcObject = stream;
-				video[0].play();
-			})
-			.catch(function(err){
-				console.log('An error occured: ' + err);
+		var video = $('#video')[0];
+		var capture = $('#capture');
+		var canvas = $('#canvas')[0];
+		var photo = $('#photo')[0];
+		var width = 500;
+		var stream;
+		var streaming = false;
+		var cancel = $('#cancel');
+		var wrapper = $('#img');
+		var media;
+
+		function takepicture() {
+			wrapper.show();
+			$(video).hide();
+		    var context = canvas.getContext('2d');
+		    if (width && height) {
+		      canvas.width = width;
+		      canvas.height = height;
+		      context.drawImage(video, 0, 0, width, height);
+		      var data = canvas.toDataURL('image/png');
+		      photo.setAttribute('src', data);
+		    } else {
+		      clearphoto();
+		    }
+			stream && stream.getTracks()[0].stop();
+		}
+
+		function clearphoto() {
+			launchCapture();
+			wrapper.hide();
+			$(video).show();
+			console.log('clear');
+		    var context = canvas.getContext('2d');
+		    context.fillStyle = "#AAA";
+		    context.fillRect(0, 0, canvas.width, canvas.height);
+		    var data = canvas.toDataURL('image/png');
+		    photo.setAttribute('src', data);
+		}
+
+		var launchCapture = function() {
+			media = navigator.mediaDevices.getUserMedia({video: true});
+			media
+				.then(function(s){
+					stream = s;
+					video.srcObject = stream;
+					video.play();
+				})
+				.catch(function(err){
+					console.log('An error occured: ' + err);
+				});
+		}
+
+		$(function(){
+			$('#swlogo').on('click', function(){
+				$('.content').show();
+				launchCapture();
+			});
+
+			video.oncanplay = function(){
+				if (!streaming) {
+			        height = video.videoHeight / (video.videoWidth/width);
+			        video.setAttribute('width', width);
+			        video.setAttribute('height', height);
+			        canvas.setAttribute('width', width);
+			        canvas.setAttribute('height', height);
+			    }
+			    streaming = true;
+		    };
+
+		   	cancel.on('click', function(){
+		    	clearphoto();
+		    })
+
+			capture.on('click', function(){
+				takepicture();
 			});
 		});
+
+
 	</script>
 </body>
 </html>
