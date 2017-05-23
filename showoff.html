@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>You are awesome developer</title>
+	<script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+	<button id="button">capture</button>
+	<video src="" id="video"></video>
+	<input type="file" id="take-picture" accept="image/*">
+	<script>
+		var takePicture = $('#take-picture');
+		var video = $('#video');
+		takePicture.on('click', function(e){
+			e.preventDefault();
+			var media = navigator.mediaDevices.getUserMedia({video: true});
+			media.then(function(stream){
+				video[0].srcObject = stream;
+				video[0].play();
+			})
+			.catch(function(err){
+				console.log('An error occured: ' + err);
+			});
+		});
+	</script>
+</body>
+</html>
