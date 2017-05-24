@@ -68,7 +68,7 @@ $helloCont = <<<EOF
 	}
 
 	#title {
-            bottom: 60px;
+            bottom: 10px;
             width: 400px;
             left: 50%;
             text-align: center;
