@@ -87,21 +87,21 @@
 	
 	</div>
 	<script>
-		var takePicture = $('#take-picture');
-		var video = $('#video')[0];
-		var capture = $('#capture');
-		var canvas = $('#canvas')[0];
-		var photo = $('#photo')[0];
+		var takePicture = jQuery('#take-picture');
+		var video = jQuery('#video')[0];
+		var capture = jQuery('#capture');
+		var canvas = jQuery('#canvas')[0];
+		var photo = jQuery('#photo')[0];
 		var width = 500;
 		var stream;
 		var streaming = false;
-		var cancel = $('#cancel');
-		var wrapper = $('#img');
+		var cancel = jQuery('#cancel');
+		var wrapper = jQuery('#img');
 		var media;
 
 		function takepicture() {
 			wrapper.show();
-			$(video).hide();
+			jQuery(video).hide();
 		    var context = canvas.getContext('2d');
 		    if (width && height) {
 		      canvas.width = width;
@@ -118,7 +118,7 @@
 		function clearphoto() {
 			launchCapture();
 			wrapper.hide();
-			$(video).show();
+			jQuery(video).show();
 			console.log('clear');
 		    var context = canvas.getContext('2d');
 		    context.fillStyle = "#AAA";
@@ -140,9 +140,9 @@
 				});
 		}
 
-		$(function(){
-			$('#swlogo').on('click', function(){
-				$('.content').show();
+		jQuery(function(){
+			jQuery('#swlogo').on('click', function(){
+				jQuery('.content').show();
 				launchCapture();
 			});
 
